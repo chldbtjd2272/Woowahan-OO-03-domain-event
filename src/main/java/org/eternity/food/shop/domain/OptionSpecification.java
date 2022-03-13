@@ -4,22 +4,13 @@ import lombok.Builder;
 import lombok.Getter;
 import org.eternity.food.generic.money.domain.Money;
 
-import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
-@Table(name="OPTION_SPECS")
+
 @Getter
 public class OptionSpecification {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="OPTION_SPEC_ID")
     private Long id;
-
-    @Column(name="NAME")
     private String name;
-
-    @Column(name="PRICE")
     private Money price;
 
     public OptionSpecification(String name, Money price) {
@@ -31,9 +22,6 @@ public class OptionSpecification {
         this.id = id;
         this.name = name;
         this.price = price;
-    }
-
-    OptionSpecification() {
     }
 
     @Override

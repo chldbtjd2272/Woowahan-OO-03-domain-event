@@ -4,31 +4,16 @@ import lombok.Builder;
 import lombok.Getter;
 import org.eternity.food.generic.money.domain.Money;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Entity
-@Table(name = "MENUS")
 @Getter
 public class Menu {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MENU_ID")
     private Long id;
-
-    @Column(name="FOOD_NAME")
     private String name;
-
-    @Column(name="FOOD_DESCRIPTION")
     private String description;
-
-    @Column(name="SHOP_ID")
     private Long shopId;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="MENU_ID")
     private List<OptionGroupSpecification> optionGroupSpecs = new ArrayList<>();
 
     public Menu(Long shopId, String name, String description, OptionGroupSpecification basic, OptionGroupSpecification... groups) {
@@ -44,9 +29,6 @@ public class Menu {
 
         this.optionGroupSpecs.add(basic);
         this.optionGroupSpecs.addAll(additives);
-    }
-
-    Menu() {
     }
 
     public Money getBasePrice() {

@@ -5,29 +5,12 @@ import lombok.Getter;
 import org.eternity.food.generic.money.domain.Money;
 import org.eternity.food.generic.money.domain.Ratio;
 
-import javax.persistence.*;
-
-import static javax.persistence.GenerationType.IDENTITY;
-
-@Entity
-@Table(name="SHOPS")
 @Getter
 public class Shop {
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name="SHOP_ID")
     private Long id;
-
-    @Column(name="NAME")
     private String name;
-
-    @Column(name="OPEN")
     private boolean open;
-
-    @Column(name="MIN_ORDER_AMOUNT")
     private Money minOrderAmount;
-
-    @Column(name="COMMISSION_RATE")
     private Ratio commissionRate;
 
     public Shop(String name, boolean open, Money minOrderAmount) {
@@ -45,9 +28,6 @@ public class Shop {
         this.open = open;
         this.minOrderAmount = minOrderAmount;
         this.commissionRate = commissionRate;
-    }
-
-    Shop() {
     }
 
     public boolean isValidOrderAmount(Money amount) {

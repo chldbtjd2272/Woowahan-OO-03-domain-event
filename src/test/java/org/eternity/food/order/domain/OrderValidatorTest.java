@@ -1,12 +1,10 @@
 package org.eternity.food.order.domain;
 
 import org.eternity.food.generic.money.domain.Money;
-import org.eternity.food.order.domain.Order;
-import org.eternity.food.order.domain.OrderValidator;
+import org.eternity.food.shop.adapter.out.MenuJpaRepository;
+import org.eternity.food.shop.adapter.out.ShopJpaRepository;
 import org.eternity.food.shop.domain.Menu;
-import org.eternity.food.shop.domain.MenuRepository;
 import org.eternity.food.shop.domain.Shop;
-import org.eternity.food.shop.domain.ShopRepository;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +20,7 @@ public class OrderValidatorTest {
 
     @Before
     public void setUp() {
-        validator = new OrderValidator(mock(ShopRepository.class), mock(MenuRepository.class));
+        validator = new OrderValidator(mock(ShopJpaRepository.class), mock(MenuJpaRepository.class));
     }
 
     @Test(expected = IllegalArgumentException.class)

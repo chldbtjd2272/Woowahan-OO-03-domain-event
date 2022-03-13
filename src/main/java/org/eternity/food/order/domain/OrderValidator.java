@@ -1,6 +1,10 @@
 package org.eternity.food.order.domain;
 
-import org.eternity.food.shop.domain.*;
+import org.eternity.food.shop.adapter.out.MenuJpaRepository;
+import org.eternity.food.shop.adapter.out.ShopJpaRepository;
+import org.eternity.food.shop.domain.Menu;
+import org.eternity.food.shop.domain.OptionGroupSpecification;
+import org.eternity.food.shop.domain.Shop;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -10,11 +14,11 @@ import static java.util.stream.Collectors.toMap;
 
 @Component
 public class OrderValidator {
-    private ShopRepository shopRepository;
-    private MenuRepository menuRepository;
+    private ShopJpaRepository shopRepository;
+    private MenuJpaRepository menuRepository;
 
-    public OrderValidator(ShopRepository shopRepository,
-                          MenuRepository menuRepository) {
+    public OrderValidator(ShopJpaRepository shopRepository,
+                          MenuJpaRepository menuRepository) {
         this.shopRepository = shopRepository;
         this.menuRepository = menuRepository;
     }
