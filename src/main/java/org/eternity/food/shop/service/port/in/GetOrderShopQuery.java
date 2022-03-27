@@ -1,15 +1,12 @@
-package org.eternity.food.shop.service.port.out;
+package org.eternity.food.shop.service.port.in;
 
 import org.eternity.food.shop.domain.Menu;
 import org.eternity.food.shop.domain.Shop;
 
 import java.util.List;
 
-public interface LoadShopPort {
-    Shop findShopById(Long id);
-
-    List<Menu> findMenusByShopId(Long shopId);
+public interface GetOrderShopQuery {
+    Shop findShopById(Long shopId);
 
     List<Menu> findMenusByMenuIds(List<Long> menuIds);
-
 }

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface MenuJpaRepository extends JpaRepository<MenuJpaEntity, Long> {
     List<MenuJpaEntity> findByShopId(Long shopId);
+
+    List<MenuJpaEntity> findByIdIn(List<Long> shopId);
 }

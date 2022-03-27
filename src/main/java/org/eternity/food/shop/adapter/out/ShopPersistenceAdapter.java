@@ -33,4 +33,11 @@ public class ShopPersistenceAdapter implements LoadShopPort {
                 .map(shopMapper::mapToMenu)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Menu> findMenusByMenuIds(List<Long> menuIds) {
+        return menuJpaRepository.findByIdIn(menuIds).stream()
+                .map(shopMapper::mapToMenu)
+                .collect(Collectors.toList());
+    }
 }

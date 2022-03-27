@@ -1,10 +1,12 @@
-package org.eternity.food.order.domain;
+package org.eternity.food.order.service;
 
-import org.eternity.food.shop.adapter.out.MenuJpaRepository;
-import org.eternity.food.shop.adapter.out.ShopJpaRepository;
+import org.eternity.food.order.domain.Order;
+import org.eternity.food.order.domain.OrderLineItem;
+import org.eternity.food.order.domain.OrderOptionGroup;
 import org.eternity.food.shop.domain.Menu;
 import org.eternity.food.shop.domain.OptionGroupSpecification;
 import org.eternity.food.shop.domain.Shop;
+import org.eternity.food.shop.service.port.in.GetOrderShopQuery;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -14,13 +16,10 @@ import static java.util.stream.Collectors.toMap;
 
 @Component
 public class OrderValidator {
-    private ShopJpaRepository shopRepository;
-    private MenuJpaRepository menuRepository;
+    private final GetOrderShopQuery getOrderShopQuery;
 
-    public OrderValidator(ShopJpaRepository shopRepository,
-                          MenuJpaRepository menuRepository) {
-        this.shopRepository = shopRepository;
-        this.menuRepository = menuRepository;
+    public OrderValidator(GetOrderShopQuery getOrderShopQuery) {
+        this.getOrderShopQuery = getOrderShopQuery;
     }
 
     public void validate(Order order) {
@@ -66,10 +65,10 @@ public class OrderValidator {
     }
 
     private Shop getShop(Order order) {
-        return shopRepository.findById(order.getShopId()).orElseThrow(IllegalArgumentException::new);
+        return getOrderShopQuery.findShopById(order.getShopId());
     }
 
     private Map<Long, Menu> getMenus(Order order) {
-        return menuRepository.findAllById(order.getMenuIds()).stream().collect(toMap(Menu::getId, identity()));
+        return getOrderShopQuery.findMenusByMenuIds(order.getMenuIds()).stream().collect(toMap(Menu::getId, identity()));
     }
 }

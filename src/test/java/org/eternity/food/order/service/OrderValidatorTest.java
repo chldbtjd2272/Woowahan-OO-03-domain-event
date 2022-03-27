@@ -1,10 +1,10 @@
-package org.eternity.food.order.domain;
+package org.eternity.food.order.service;
 
 import org.eternity.food.generic.money.domain.Money;
-import org.eternity.food.shop.adapter.out.MenuJpaRepository;
-import org.eternity.food.shop.adapter.out.ShopJpaRepository;
+import org.eternity.food.order.domain.Order;
 import org.eternity.food.shop.domain.Menu;
 import org.eternity.food.shop.domain.Shop;
+import org.eternity.food.shop.service.port.in.GetOrderShopQuery;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +12,14 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import static java.util.Arrays.asList;
-import static org.eternity.food.Fixtures.*;
+import static org.eternity.food.Fixtures.aMenu;
+import static org.eternity.food.Fixtures.aShop;
+import static org.eternity.food.Fixtures.anOptionGroupSpec;
+import static org.eternity.food.Fixtures.anOptionSpec;
+import static org.eternity.food.Fixtures.anOrder;
+import static org.eternity.food.Fixtures.anOrderLineItem;
+import static org.eternity.food.Fixtures.anOrderOption;
+import static org.eternity.food.Fixtures.anOrderOptionGroup;
 import static org.mockito.Mockito.mock;
 
 public class OrderValidatorTest {
@@ -20,7 +27,7 @@ public class OrderValidatorTest {
 
     @Before
     public void setUp() {
-        validator = new OrderValidator(mock(ShopJpaRepository.class), mock(MenuJpaRepository.class));
+        validator = new OrderValidator(mock(GetOrderShopQuery.class));
     }
 
     @Test(expected = IllegalArgumentException.class)
