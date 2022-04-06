@@ -11,21 +11,27 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class OrderPersistenceAdapter implements CreateOrderPort, LoadOrderPort, UpdateOrderStatusPort {
     private final OrderRepository orderRepository;
+    private final OrderJpaMapper orderJpaMapper;
 
     @Override
     public Order createOrder(Order order) {
-        return orderRepository.save(order);
+        OrderJpaEntity orderJpaEntity = orderRepository.save(orderJpaMapper.mapFrom(order));
+        return orderJpaMapper.mapFrom(orderJpaEntity);
     }
 
     @Override
     public Order findById(Long id) {
-        return orderRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        return orderJpaMapper.mapFrom(
+                orderRepository.findById(id).orElseThrow(IllegalArgumentException::new)
+        );
     }
 
     @Override
-    public Order updateOrder(Order order) {
+    public Order updateOrderStatus(Order order) {
         if (order.getId() != null) {
-            orderRepository.save(order);
+            orderRepository.save(orderJpaMapper.mapFrom(order));
+        } else {
+            throw new IllegalStateException("not support update");
         }
         return order;
     }

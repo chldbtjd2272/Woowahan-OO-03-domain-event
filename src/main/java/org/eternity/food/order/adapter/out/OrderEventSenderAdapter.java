@@ -14,11 +14,11 @@ public class OrderEventSenderAdapter implements OrderEventSenderPort {
 
     @Override
     public void send(OrderDeliveredEvent event) {
-
+        applicationEventPublisher.publishEvent(event);
     }
 
     @Override
-    public void send(OrderPayedEvent order) {
-
+    public void send(OrderPayedEvent event) {
+        applicationEventPublisher.publishEvent(event);
     }
 }
